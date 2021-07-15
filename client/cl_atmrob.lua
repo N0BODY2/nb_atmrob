@@ -48,5 +48,5 @@ AddEventHandler('nb_atmrob:client:ATMCheck', function()
             atmFound = false
         end
     end
-    TriggerEvent('nb_atmrob:client:getatm', atmFound, coords)
+    TriggerEvent('nb_atmrob:client:getatm', atmFound)
 end)
