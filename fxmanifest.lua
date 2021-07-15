@@ -14,3 +14,9 @@ server_scripts {
     'server/*.lua',
     'configs/*.lua'
 }
+
+dependencies {
+    'utk_fingerprint',
+    'utk_hackdependency'
+}
+
