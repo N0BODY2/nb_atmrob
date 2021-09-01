@@ -34,7 +34,7 @@ end)
 RegisterServerEvent('nb_atmrob:server:getcash')
 AddEventHandler('nb_atmrob:server:getcash', function(dalto, atm)
     local xPlayer = ESX.GetPlayerFromId(source)
-    local cash = math.random(Config.Lowest,Config.MaxCash)
+    local cash = math.random(5000,15000)
     if atm and dalto then 
         if Config.BlackMoney then 
             xPlayer.addAccountMoney('black_money', cash)
