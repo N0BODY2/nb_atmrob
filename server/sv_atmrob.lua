@@ -1,6 +1,7 @@
 ESX 						   = nil
 local connectedPolice       	   = 0
 local playerConnected = {}
+local atmrob = {}
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
@@ -36,14 +37,27 @@ AddEventHandler('nb_atmrob:server:getcash', function(dalto, atm)
     local xPlayer = ESX.GetPlayerFromId(source)
     local cash = math.random(5000,15000)
     if atm and dalto then 
-        if Config.BlackMoney then 
-            xPlayer.addAccountMoney('black_money', cash)
+        if atmrob[source] then 
+            atmrob[source] = false
+            if Config.BlackMoney then 
+                xPlayer.addAccountMoney('black_money', cash)
+            else
+                xPlayer.addMoney(cash)
+            end
+            xPlayer.removeInventoryItem('lockpick', 1)
+            xPlayer.showNotification(_U('dostalpenize', cash))
         else
-            xPlayer.addMoney(cash)
+            print(GetPlayerName(source).. ' Tried some fishy things')
         end
-        xPlayer.removeInventoryItem('lockpick', 1)
-        xPlayer.showNotification(_U('dostalpenize', cash))
     else
         xPlayer.removeInventoryItem('lockpick', 1)
     end
 end)
+
+RegisterServerEvent('nb_atmrob:server:startedrob')
+AddEventHandler('nb_atmrob:server:startedrob', function()
+    if atmrob[source] == nil or atmrob[source] == false then 
+        atmrob[source] = true
+    end
+end)
+
